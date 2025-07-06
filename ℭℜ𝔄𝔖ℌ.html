@@ -12,8 +12,23 @@
       font-family: 'Segoe UI', sans-serif;
     }
 
+    body, html {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* Video background */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1;
+      object-fit: cover;
+    }
+
     body {
-      background-color: #000;
       color: white;
       font-size: 18px;
       display: flex;
@@ -21,6 +36,7 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      padding: 20px;
     }
 
     .container {
@@ -97,19 +113,21 @@
       color: #00bfff;
       margin-top: 10px;
     }
-
   </style>
 </head>
 <body>
 
+  <!-- Video Background -->
+  <video autoplay muted loop class="bg-video">
+    <source src="https://qu.ax/DqQYa.mp4" type="video/mp4">
+  </video>
+
   <div class="container" id="login-container">
     <h2>Login untuk Mengakses Fitur</h2>
 
-    <!-- Form Login -->
     <div class="login-form">
       <input type="text" id="username" class="input-field" placeholder="Username" />
       <input type="password" id="password" class="input-field" placeholder="Password" />
-      <!-- Deskripsi Follow -->
       <p class="follow-text">Follow dulu bree🗿</p>
       <button class="send-button" onclick="login()">Login</button>
       <p class="error-message" id="error-message" style="display: none;">Username atau Password salah!</p>
@@ -118,52 +136,37 @@
 
   <div class="container" id="message-container" style="display: none;">
     <h2>Masukkan Nomor Tujuan dan Kirim Pesan</h2>
-
-    <!-- Form untuk Mengisi Nomor Tujuan -->
     <input type="text" id="target-number" class="input-field" placeholder="Nomor Tujuan (tanpa +)" />
     <button class="send-button" onclick="sendMessage()">Kirim Pesan</button>
-
-    <!-- Tombol untuk Kembali ke Halaman Utama -->
     <button class="back-button" onclick="goBack()">Kembali ke Index</button>
   </div>
 
   <script>
-    // Data login yang benar
     const validUsername = "ziyking";
     const validPassword = "ziyggcf67n";
 
-    // Fungsi untuk memverifikasi login
     function login() {
       const username = document.getElementById("username").value;
       const password = document.getElementById("password").value;
 
-      // Cek apakah username dan password benar
       if (username === validUsername && password === validPassword) {
-        // Sembunyikan form login dan tampilkan form kirim pesan
         document.getElementById("login-container").style.display = "none";
         document.getElementById("message-container").style.display = "block";
       } else {
-        // Tampilkan pesan error
         document.getElementById("error-message").style.display = "block";
       }
     }
 
-    // Fungsi untuk mengirim pesan ke WhatsApp
     function sendMessage() {
       const targetNumber = document.getElementById("target-number").value;
-
       if (targetNumber) {
-        // Membuat URL WhatsApp dengan nomor tujuan
         const waUrl = `https://wa.me/${targetNumber}?text=hai`;
-
-        // Arahkan pengguna ke WhatsApp
         window.location.href = waUrl;
       } else {
         alert("Harap masukkan nomor tujuan dengan benar!");
       }
     }
 
-    // Fungsi untuk kembali ke halaman index.html
     function goBack() {
       window.location.href = "index.html";
     }
