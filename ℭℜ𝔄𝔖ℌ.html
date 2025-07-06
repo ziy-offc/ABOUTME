@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login dan Kirim Pesan WhatsApp</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #000;
+      color: white;
+      font-size: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border: 1px solid #00bfff;
+      background-color: transparent;
+      color: white;
+      font-size: 16px;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: #ff4500;
+    }
+
+    .send-button {
+      width: 100%;
+      padding: 14px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: 0.3s;
+    }
+
+    .send-button:hover {
+      background-color: #128c7e;
+      transform: scale(1.03);
+    }
+
+    .login-form {
+      margin-bottom: 20px;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .back-button {
+      width: 100%;
+      padding: 14px;
+      background-color: #ff4500;
+      color: white;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #e03d00;
+      transform: scale(1.03);
+    }
+
+    .follow-text {
+      font-size: 14px;
+      color: #00bfff;
+      margin-top: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container" id="login-container">
+    <h2>Login untuk Mengakses Fitur</h2>
+
+    <!-- Form Login -->
+    <div class="login-form">
+      <input type="text" id="username" class="input-field" placeholder="Username" />
+      <input type="password" id="password" class="input-field" placeholder="Password" />
+      <!-- Deskripsi Follow -->
+      <p class="follow-text">Follow dulu bree🗿</p>
+      <button class="send-button" onclick="login()">Login</button>
+      <p class="error-message" id="error-message" style="display: none;">Username atau Password salah!</p>
+    </div>
+  </div>
+
+  <div class="container" id="message-container" style="display: none;">
+    <h2>Masukkan Nomor Tujuan dan Kirim Pesan</h2>
+
+    <!-- Form untuk Mengisi Nomor Tujuan -->
+    <input type="text" id="target-number" class="input-field" placeholder="Nomor Tujuan (tanpa +)" />
+    <button class="send-button" onclick="sendMessage()">Kirim Pesan</button>
+
+    <!-- Tombol untuk Kembali ke Halaman Utama -->
+    <button class="back-button" onclick="goBack()">Kembali ke Index</button>
+  </div>
+
+  <script>
+    // Data login yang benar
+    const validUsername = "ziyking";
+    const validPassword = "ziyggcf67n";
+
+    // Fungsi untuk memverifikasi login
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      // Cek apakah username dan password benar
+      if (username === validUsername && password === validPassword) {
+        // Sembunyikan form login dan tampilkan form kirim pesan
+        document.getElementById("login-container").style.display = "none";
+        document.getElementById("message-container").style.display = "block";
+      } else {
+        // Tampilkan pesan error
+        document.getElementById("error-message").style.display = "block";
+      }
+    }
+
+    // Fungsi untuk mengirim pesan ke WhatsApp
+    function sendMessage() {
+      const targetNumber = document.getElementById("target-number").value;
+
+      if (targetNumber) {
+        // Membuat URL WhatsApp dengan nomor tujuan
+        const waUrl = `https://wa.me/${targetNumber}?text=hai`;
+
+        // Arahkan pengguna ke WhatsApp
+        window.location.href = waUrl;
+      } else {
+        alert("Harap masukkan nomor tujuan dengan benar!");
+      }
+    }
+
+    // Fungsi untuk kembali ke halaman index.html
+    function goBack() {
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>
