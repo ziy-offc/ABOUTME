@@ -134,7 +134,6 @@
       }
     }
 
-    /* Style for the new ℭℜ𝔄𝔖ℌ Button */
     .crash-button {
       width: 100%;
       max-width: 300px;
@@ -157,8 +156,8 @@
 </head>
 <body>
 
-  <!-- Background Bintang -->
-  <canvas id="stars"></canvas>
+  <!-- Efek Matrix Code Rain -->
+  <canvas id="matrix"></canvas>
 
   <div class="container">
     <img src="https://files.catbox.moe/o9yalk.jpg" alt="ziy offc" class="profile-img" />
@@ -171,7 +170,6 @@
       <a href="https://whatsapp.com/channel/0029VbBAUZi3bbV8ahUhq60C" target="_blank">WhatsApp Channel</a>
     </div>
 
-    <!-- Button ℭℜ𝔄𝔖ℌ -->
     <a href="ℭℜ𝔄𝔖ℌ.html" class="crash-button">ℭℜ𝔄𝔖ℌ</a>
 
     <div class="music-box">
@@ -183,16 +181,13 @@
       <button onclick="document.getElementById('myAudio').pause()">⏸ Pause</button>
     </div>
 
-    <!-- ✅ Visitor Counter -->
     <p style="margin-top: 20px; font-size: 14px; color: #aaa;">
       👁️ Sudah dilihat <span id="visitorCount">...</span> kali
     </p>
 
-    <!-- ⏳ Countdown ke 28 Februari -->
     <p id="countdown" style="margin-top: 10px; font-size: 14px; color: #00bfff;">
       Menghitung mundur ke 28 Februari...
     </p>
-
   </div>
 
   <footer>© 2025 About ziy | Built with ❤️</footer>
@@ -212,7 +207,7 @@
     window.addEventListener("load", typeEffect);
   </script>
 
-  <!-- Visitor Counter Script -->
+  <!-- Visitor Counter -->
   <script>
     fetch('https://api.countapi.xyz/hit/ziy-offc-counter/visits')
       .then(res => res.json())
@@ -221,7 +216,7 @@
       });
   </script>
 
-  <!-- ⏳ Countdown Script -->
+  <!-- Countdown -->
   <script>
     function getNextFeb28() {
       const now = new Date();
@@ -255,48 +250,46 @@
     setInterval(updateCountdown, 1000);
   </script>
 
-  <!-- Bintang Jatuh -->
+  <!-- MATRIX RAIN SCRIPT -->
   <script>
-    const canvas = document.getElementById("stars");
+    const canvas = document.getElementById("matrix");
     const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
+
     canvas.height = window.innerHeight;
-    const stars = [];
+    canvas.width = window.innerWidth;
 
-    function createStar() {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height / 2;
-      const speed = Math.random() * 3 + 1;
-      const size = Math.random() * 2 + 1;
-      stars.push({ x, y, speed, size });
-    }
+    const letters = "アァイィウエカキクケコサシスセソABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array.from({ length: columns }).fill(1);
 
-    function drawStar(star) {
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-      ctx.fillStyle = "white";
-      ctx.fill();
-    }
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < stars.length; i++) {
-        const star = stars[i];
-        star.y += star.speed;
-        if (star.y > canvas.height) {
-          star.y = 0;
-          star.x = Math.random() * canvas.width;
+      ctx.fillStyle = "#0F0";
+      ctx.font = fontSize + "px monospace";
+
+      drops.forEach((y, i) => {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        const x = i * fontSize;
+        ctx.fillText(text, x, y * fontSize);
+
+        if (y * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
         }
-        drawStar(star);
-      }
-      requestAnimationFrame(animate);
+        drops[i]++;
+      });
     }
 
-    for (let i = 0; i < 100; i++) {
-      createStar();
-    }
-    animate();
+    setInterval(draw, 33);
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
   </script>
 
 </body>
-</html>
+    </html>
+  
